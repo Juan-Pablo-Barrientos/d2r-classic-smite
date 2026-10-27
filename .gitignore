@@ -1,0 +1,12 @@
+dist/
+# local working files: the Blender scene (game meshes), renders and raw captures
+blender/
+captures/
+# tool working folders (extracted game files, LSLib, screen captures)
+tools/work/
+tools/lslib/
+tools/capture/
+tools/render/
+tools/extract/
+tools/classic/
+__pycache__/
