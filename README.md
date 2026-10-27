@@ -6,7 +6,7 @@ game's HD graphics, Smite is a hunch and an upward shove. With this mod the
 Paladin winds up, steps forward with his right foot, and punches his shield
 straight out with his sword raised, like the original sprite.
 
-![The original Diablo II Smite next to Classic Smite in HD](docs/smite_compare.gif)
+![The original Diablo II Smite next to Classic Smite in HD](docs/smite_compare_1.1.gif)
 
 Left: the original Smite sprite, taken from the game files and facing the same
 way. Right: Classic Smite in HD, captured in game at real speed. Each original
@@ -14,7 +14,7 @@ attack is timed to the HD one so both hits land together.
 
 One Classic Smite in slow motion:
 
-![One Classic Smite in slow motion](docs/smite_slowmo.gif)
+![One Classic Smite in slow motion](docs/smite_slowmo_1.1.gif)
 
 ## What changes
 
