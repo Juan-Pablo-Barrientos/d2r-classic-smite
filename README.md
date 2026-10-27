@@ -8,8 +8,9 @@ straight out with his sword raised, like the original sprite.
 
 ![The original Diablo II Smite next to Classic Smite in HD](docs/smite_compare.gif)
 
-Left: the original Smite (legacy graphics). Right: Classic Smite in HD. Both
-are in-game captures at real speed.
+Left: the original Smite sprite, taken from the game files and facing the same
+way. Right: Classic Smite in HD, captured in game at real speed. Each original
+attack is timed to the HD one so both hits land together.
 
 One Classic Smite in slow motion:
 
@@ -23,8 +24,12 @@ One Classic Smite in slow motion:
   2. The right foot steps past the left foot and lands in front, and the body
      moves forward with it. The left foot stays planted.
   3. On the hit, the Paladin drops into a crouch and punches the shield arm
-     straight out, with the sword raised over his head.
+     straight out, with the sword raised over his head. He holds the crouch for
+     a moment, like the original.
   4. The right foot steps back to where it started.
+
+  The timing follows the original sprite frame by frame, and the hit lands when
+  the game deals the damage.
 - **Back-to-back Smites** blend into each other faster than in the base game
   (0.05 seconds instead of 0.2), so each one shows the step. Otherwise the blend
   covers most of the step at normal attack speeds.
@@ -68,6 +73,10 @@ Smite sprite, frame by frame. The scripts are in [tools](tools):
   bones, it rewrites the clip's foot targets, which the game uses to plant the
   feet, and holds its aim point still. Without that, the game keeps the feet and
   the weapon arm on the original Smite's motion.
+- `dcc_sync.py` and `make_compare_gif.ps1` make the comparison GIF above.
+
+The game only shows the first 0.48 seconds of the clip per attack (12 frames at
+Diablo II's 25 fps), so the whole move fits in that part.
 
 They need LSLib's ExportTool, Blender 5, Python 3 and D2RMM's `CascLib.dll`.
 

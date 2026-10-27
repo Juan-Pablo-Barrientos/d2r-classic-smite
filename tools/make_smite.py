@@ -116,58 +116,72 @@ R0 = head_of("R_leg_03_bind_jnt")  # right ankle in the ready stance (-0.61, 1.6
 R_FWD = (-0.75, -3.3, 0.36)  # right ankle planted ~2.2 ft in front of the left foot
 KEYS = {
     0: None,  # original ready stance
+    # Timing: the game plays only the first 0.48 s of the clip per attack (12 frames at D2's 25 fps, at the
+    # attack's speed) and cuts to the next attack or the stance after that, so the whole move fits in
+    # frames 0-14 (30 fps): classic frame k ~ frame 1.2k here, hit (classic 7) at frame 8 = 0.27 s, which is
+    # also when the game deals the damage. Frames 15-22 hold the stance and are never seen.
     # Footwork from the classic sprites (side and front views): the LEFT foot never moves. The RIGHT (back)
-    # foot lifts (2), passes beside the left foot (4) and plants about 2 ft in front of it (8); the body
-    # travels ~2.4 ft forward over it and sinks into the crouch for the punch (11-13). On the recovery the
-    # right foot steps back past the left foot (18-20) to the ready stance (22).
+    # foot lifts (1), passes beside the left foot (2) and plants about 2 ft in front of it (4); the body
+    # travels ~2.4 ft forward over it and sinks into the crouch for the punch (6-8). On the recovery the
+    # right foot steps back past the left foot (13-14) to the ready stance (15).
     # hips: pelvis yaw, + = right hip forward (follows the right foot).
-    2: dict(  # classic 1: weight onto the left foot, right foot lifting, shield starting out
+    1: dict(  # classic 1: weight onto the left foot, right foot lifting, shield starting out
         pelvis=(0.2, 0.0, 3.55), hips=5, twist=10,
-        lhand=(1.9, -0.4, 4.3), rhand=(-1.1, 0.3, 3.6),
+        # sword hangs forward and out to his right, clear of the right thigh
+        lhand=(1.9, -0.4, 4.3), rhand=(-1.1, 0.3, 3.6), sword=(-0.45, -0.8, -0.3),
         lfoot=L0, rfoot=(-0.6, 1.0, 0.75)),
-    4: dict(  # classic 2: right foot passing beside the left, shield swinging out, sword sweeping low
+    2: dict(  # classic 2: right foot passing beside the left, shield swinging out, sword sweeping low
         pelvis=(0.22, -0.6, 3.45), hips=10, twist=25, bend=2,
-        lhand=(2.0, 0.0, 4.8), rhand=(-0.6, -1.0, 3.4),
+        # hand up and out to his right: the right knee is coming up and forward under it
+        lhand=(2.0, 0.0, 4.8), rhand=(-1.05, -1.2, 3.95), sword=(-0.15, -0.98, 0.1),
         lfoot=L0, rfoot=(-0.5, -1.0, 0.95)),
-    6: dict(  # classic 3: right foot reaching forward, wind-up building
+    3: dict(  # classic 3: right foot reaching forward, wind-up building
         pelvis=(0.15, -1.2, 3.3), hips=18, twist=40, bend=2,
         lhand=(1.7, -0.2, 5.2), rhand=(0.3, -2.4, 3.3), sword=(0.5, 0.5, 0.2),
         lfoot=L0, rfoot=(-0.65, -2.4, 0.75)),
-    8: dict(  # classic 4: right foot planted in front, shield back by the left shoulder, sword low across
+    4: dict(  # classic 4: right foot planted in front, shield back by the left shoulder, sword low across
         pelvis=(0.1, -1.7, 3.05), hips=22, twist=45, bend=-3, lean=4,
         lhand=(1.6, -0.5, 5.3), rhand=(0.6, -3.4, 3.2), sword=(0.6, 0.7, 0.4),
         lfoot=L0, rfoot=R_FWD),
-    9: dict(  # classic 5: wind-up peak
+    5: dict(  # classic 5: wind-up peak
         pelvis=(0.1, -1.8, 3.0), hips=22, twist=45, bend=-3, lean=4,
         lhand=(1.6, -0.4, 5.3), rhand=(0.7, -3.6, 3.2), sword=(0.6, 0.7, 0.4),
         lfoot=L0, rfoot=R_FWD),
-    # The punch comes as the body drives forward and down over the right foot.
-    11: dict(  # classic 6: shield arm coming through, nearly straight, sword going up
-        pelvis=(0.12, -2.0, 2.7), hips=20, twist=-35, bend=20, lclav=-15,
-        lhand=(0.6, -6.4, 3.9), rhand=(-1.1, -1.6, 6.0), sword=(-0.2, 0.55, 0.8),
+    # The shield stays back by the left shoulder until classic frame 6 (frame 7 here) and comes through only
+    # on the hit; the crouch holds through classic frame 10 (frame 12 here). The sword swings around the
+    # body (classic frame 6: flung out to his right): low across the belly with the blade up (6), out to his
+    # right side and up (7), then up and back behind the head (8-12).
+    6: dict(  # sword crossing in front of the belly, shield still back by the shoulder
+        pelvis=(0.11, -1.9, 2.85), hips=22, twist=40, bend=6, lean=3,
+        lhand=(1.6, -0.8, 5.3), rhand=(0.0, -3.4, 4.0), sword=(0.0, -0.6, 0.8),
         lfoot=L0, rfoot=R_FWD),
-    12: dict(  # arm locks out while the body is still sinking forward
-        pelvis=(0.12, -2.1, 2.55), hips=20, twist=-60, bend=33, lclav=-22,
-        lhand=(0.45, -7.8, 3.7), rhand=(-0.95, -2.2, 6.3), sword=(-0.3, 0.7, 0.65),
+    7: dict(  # classic 6: sword flung out to his right and rising, shield just starting forward
+        pelvis=(0.12, -2.0, 2.7), hips=21, twist=15, bend=14, lclav=-5,
+        lhand=(1.5, -2.2, 5.0), rhand=(-1.7, -1.6, 5.2), sword=(-0.6, 0.35, 0.7),
         lfoot=L0, rfoot=R_FWD),
-    13: dict(  # classic 7 (hit): deep crouch over the right foot, shield arm punched out, sword high
+    8: dict(  # classic 7 (hit): deep crouch over the right foot, shield arm punched out, sword high and back
         # the hand target sits well past arm's reach so IK locks the arm straight; lclav pushes the
         # shoulder joint forward for extra reach
-        pelvis=(0.1, -2.15, 2.45), hips=20, twist=-65, bend=37, lclav=-25,
-        lhand=(0.4, -8.2, 3.6), rhand=(-0.9, -2.3, 6.3), sword=(-0.3, 0.7, 0.65),
+        pelvis=(0.1, -2.2, 2.32), hips=20, twist=-65, bend=42, lclav=-25,
+        lhand=(0.4, -8.2, 3.3), rhand=(-0.9, -1.9, 6.0), sword=(-0.3, 0.9, 0.3),
         lfoot=L0, rfoot=R_FWD),
-    17: dict(  # classic 9: holding the crouch, arm still out
-        pelvis=(0.1, -2.05, 2.55), hips=20, twist=-60, bend=33, lclav=-20,
-        lhand=(0.4, -7.7, 3.6), rhand=(-0.9, -2.2, 6.2), sword=(-0.3, 0.7, 0.65),
+    10: dict(  # classic 8-9: holding the crouch, arm still out
+        pelvis=(0.1, -2.15, 2.36), hips=20, twist=-63, bend=40, lclav=-23,
+        lhand=(0.4, -8.0, 3.35), rhand=(-0.9, -1.9, 5.95), sword=(-0.3, 0.9, 0.3),
         lfoot=L0, rfoot=R_FWD),
-    18: dict(  # classic 10: right foot lifting off to step back, body rising
-        pelvis=(0.12, -1.5, 2.9), hips=12, twist=-30, bend=15,
-        lhand=(1.0, -4.0, 4.1), rhand=(-1.2, -0.8, 5.4), sword=(-0.5, 0.2, 0.5),
-        lfoot=L0, rfoot=(-0.65, -2.3, 0.8)),
-    20: dict(  # classic 11: right foot passing back beside the left, almost upright
-        pelvis=(0.15, -0.6, 3.4), hips=4, twist=-8, bend=5,
+    12: dict(  # classic 10: last frame of the crouch, shield arm starting to drop
+        pelvis=(0.1, -2.05, 2.4), hips=19, twist=-55, bend=34, lclav=-15,
+        lhand=(0.6, -6.8, 3.6), rhand=(-1.0, -1.8, 5.8), sword=(-0.35, 0.8, 0.4),
+        lfoot=L0, rfoot=R_FWD),
+    13: dict(  # right foot lifting off to step back, body rising fast
+        pelvis=(0.12, -1.6, 2.9), hips=12, twist=-30, bend=15,
+        lhand=(1.0, -4.0, 4.1), rhand=(-1.2, -0.8, 5.2), sword=(-0.5, 0.2, 0.5),
+        lfoot=L0, rfoot=(-0.65, -2.3, 0.85)),
+    14: dict(  # classic 11: right foot passing back beside the left, almost upright
+        pelvis=(0.15, -0.7, 3.35), hips=5, twist=-10, bend=6,
         lhand=(1.4, -1.6, 3.9), rhand=(-1.3, -0.4, 4.3),
-        lfoot=L0, rfoot=(-0.6, 0.2, 0.8)),
+        lfoot=L0, rfoot=(-0.6, -0.3, 0.9)),
+    15: None,  # back in the stance by the end of the visible window
     LAST: None,  # back to ready (loops into the next attack/idle)
 }
 
@@ -265,15 +279,18 @@ for f in range(0, LAST + 1):
         m.translation = mats[n].translation
         set_with_children(mats, n, m)
     baked[f] = mats
-    if f in (9, 13):
-        fa = (mats["R_hand_bind_jnt"].translation - mats["R_lwr_arm_bind_jnt"].translation).normalized()
+    if f == 8:
+        knees = {n: mats[n].translation.z for n in ("L_leg_02_bind_jnt", "R_leg_02_bind_jnt")}
+        print(f"frame 8: knee heights L {knees['L_leg_02_bind_jnt']:.2f} R {knees['R_leg_02_bind_jnt']:.2f} ft")
+    if f in (5, 8):
+        fa =(mats["R_hand_bind_jnt"].translation - mats["R_lwr_arm_bind_jnt"].translation).normalized()
         sw = mats["R_weapon_attach"].col[1].xyz.normalized()
         print(f"frame {f:2d}: sword dir {tuple(round(c, 2) for c in sw)}  forearm-to-sword angle {math.degrees(fa.angle(sw)):.0f} deg")
-    if f in (0, 4, 8, 13, 18, 22):
+    if f in (0, 2, 4, 8, 12, 14, 22):
         fmt = lambda v: "(" + ", ".join(f"{c:.2f}" for c in v) + ")"
         print(f"frame {f:2d}: L ankle {fmt(mats['L_leg_03_bind_jnt'].translation)}  "
               f"R ankle {fmt(mats['R_leg_03_bind_jnt'].translation)}  pelvis {fmt(mats['pelvis_bind_jnt'].translation)}")
-    if f == 13:
+    if f == 8:
         s, e, w = (mats[n].translation for n in ("L_upr_arm_bind_jnt", "L_lwr_arm_bind_jnt", "L_hand_bind_jnt"))
         elbow = math.degrees((s - e).angle(w - e))
         print(f"hit frame: L elbow angle {elbow:.0f} deg (180 = straight), wrist {tuple(round(c, 2) for c in w)}, "
